@@ -1,5 +1,6 @@
 const container = document.querySelector(".container");
 const input = document.querySelector("input")
+const buttonReset = document.querySelector('.reset')
 
 const setDivs = (e) => {
     const value = e.target.value;
@@ -14,11 +15,15 @@ const setDivs = (e) => {
     createDivs(value)
 }
 
-const createDivs = (num) => {
 
+
+const createDivs = (num) => {
+    buttonReset.addEventListener('click', () => {
+        const divs = document.querySelectorAll('.div-created');
+        divs.forEach( div => div.style.backgroundColor = null)
+    }) 
     while (container.firstChild) {
         container.removeChild(container.firstChild);
-        console.log("done")
     }
     
     container.style.gridTemplateColumns = `repeat(${num}, 1fr)`
@@ -27,7 +32,7 @@ const createDivs = (num) => {
         for (let j = 0; j < num; j++) {
             const divCreated = document.createElement('div');
             divCreated.classList.add('div-created')
-            divCreated.addEventListener('click', (e) => {
+            divCreated.addEventListener('mouseover', (e) => {
                 e.target.style.backgroundColor = "black";
             })
             container.appendChild(divCreated)
@@ -36,3 +41,4 @@ const createDivs = (num) => {
 }
 
 input.addEventListener('change', setDivs)
+createDivs(input.value)
